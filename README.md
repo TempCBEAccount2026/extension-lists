@@ -1,20 +1,19 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+<h1>Proctorio Extension Allowlist</h1>
+This is the Proctorio's list of safe extensions that are safe to run during the exam.
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Files that are adjustable are placed under contributable_lists folder. 
+<hr>
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+You may notice that each extension ID has the comment about the extension on the right side.<br>
+<strong>Please stick with that format and add a title or a short description on extension usage purpose</strong>.</br>
+<code>Format: EXTENSION_ID // extension title or the description</code>
+<hr>
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+<h2>Repository usage steps:</h2>
+<ul>
+  <li>Open .txt category file under contributable_lists folder that you would like to edit.</li>
+  <li>Hit <code>edit this file</code> (a pen icon on the top-right side of the document content box), make your contribution and procceed with <code>Commit changes...</code></li>
+  <li>Feel free to edit the commit message, extended description or branch name if needed, then continue with <code>Propose changes</code> button.</li>
+  <li>If you're done with title and description editing, hit <code>Create pull request</code> button.</li>
+  <li>Once one of the repository admins review & approve your pull request, your changes will be merged and immediately start being used in a real-time.</li>
+</ul>

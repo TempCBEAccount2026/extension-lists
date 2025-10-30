@@ -1,0 +1,12 @@
+{
+  "name": "extension_allowlist",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "refresh-list": "node .github/scripts/refresh_list.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
