@@ -26,3 +26,4 @@ opckliiodihlmpliejjddbpdjdhdkefm // Lightspeed Location Agent - EHOVE requested
 cokbpgemipiebgbmnnlfboefilmdlonm // Trellix DLP Endpoint Extension
 ifinpabiejbjobcphhaomiifjibpkjlf // LineWize Connect
 epkahbohdeajpadlmelfkenmoeblkpem // LineWize Filter Content Aware
+echcggldkblhodogklpincgchnpgcdco // Microsoft Purview Extension
