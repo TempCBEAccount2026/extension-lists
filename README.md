@@ -1,19 +1,90 @@
-<h1>Proctorio Extension Allowlist</h1>
-This is the Proctorio's list of safe extensions that are safe to run during the exam.
+# Proctorio Extension Allowlist
 
-Files that are adjustable are placed under contributable_lists folder. 
-<hr>
+Welcome! This repository maintains the official allowlist of browser extensions that are permitted to run during Proctorio-monitored exams. These carefully vetted extensions ensure students can access essential tools while maintaining exam security and integrity.
 
-You may notice that each extension ID has the comment about the extension on the right side.<br>
-<strong>Please stick with that format and add a title or a short description on extension usage purpose</strong>.</br>
-<code>Format: EXTENSION_ID // extension title or the description</code>
-<hr>
+## 📂 Repository Structure
 
-<h2>Repository usage steps:</h2>
-<ul>
-  <li>Open .txt category file under contributable_lists folder that you would like to edit.</li>
-  <li>Hit <code>edit this file</code> (a pen icon on the top-right side of the document content box), make your contribution and procceed with <code>Commit changes...</code></li>
-  <li>Feel free to edit the commit message, extended description or branch name if needed, then continue with <code>Propose changes</code> button.</li>
-  <li>If you're done with title and description editing, hit <code>Create pull request</code> button.</li>
-  <li>Once one of the repository admins review & approve your pull request, your changes will be merged and immediately start being used in a real-time.</li>
-</ul>
+All editable extension lists are organized in the **`contributable_lists/`** folder, categorized by purpose:
+
+- **accessibility.txt** - Extensions supporting users with disabilities
+- **productivity.txt** - General productivity and workflow tools
+- **security.txt** - Security and privacy-focused extensions
+- **supervision.txt** - Extensions for monitoring and supervision
+- **utilities.txt** - Miscellaneous utility extensions
+
+## 📝 Contribution Format
+
+Each extension entry follows a standardized format for clarity and consistency:
+
+```
+EXTENSION_ID // Extension Name or Brief Description
+```
+
+**Example:**
+```
+cjpalhdlnbpafiamejdnhcphjbkeiagm // uBlock Origin - Ad blocker
+```
+
+> **Important:** Always include a descriptive comment after the `//` to help reviewers and users understand the extension's purpose.
+
+## 🤝 How to Contribute
+
+We welcome contributions from the community! Follow these steps to propose additions or modifications:
+
+### Step 1: Select a Category
+Navigate to the **`contributable_lists/`** folder and choose the appropriate category file for your extension.
+
+### Step 2: Edit the File
+1. Click the **pencil icon** (✏️) in the top-right corner to edit the file
+2. Add your extension ID following the format above
+3. Ensure the description clearly explains the extension's purpose
+
+### Step 3: Commit Your Changes
+1. Scroll to the bottom of the edit page
+2. Write a meaningful commit message (e.g., "Add Grammarly extension to productivity list")
+3. Optionally add an extended description explaining why this extension should be allowed
+4. Choose to create a new branch
+5. Click **"Propose changes"**
+
+### Step 4: Create a Pull Request
+1. Review your changes on the comparison page
+2. Add a clear title and description for your pull request
+3. Explain why this extension should be on the allowlist
+4. Click **"Create pull request"**
+
+### Step 5: Review Process
+- A repository administrator will review your submission
+- They may request additional information or clarification
+- Once approved, your changes will be merged and go live immediately
+- The extension will be available for use in real-time during exams
+
+## ✅ Contribution Guidelines
+
+To ensure your pull request is accepted quickly:
+
+- **Verify the extension ID** - Double-check you're using the correct extension identifier
+- **Provide clear descriptions** - Explain what the extension does and why it's needed
+- **Choose the right category** - Place extensions in the most appropriate list
+- **One extension per commit** - Makes reviews easier and faster (Preferable)
+- **Check for duplicates** - Search the file to ensure the extension isn't already listed
+
+## 🔒 Security & Privacy
+
+All submitted extensions undergo a security review process to ensure:
+- They don't compromise exam integrity
+- They don't enable cheating or unauthorized communication
+- They respect user privacy and data security
+- They serve a legitimate educational or accessibility purpose
+
+## 📧 Questions or Issues?
+
+If you have questions about:
+- Which category an extension belongs to
+- Whether an extension qualifies for the allowlist
+- Technical issues with the repository
+
+Please open an issue in the repository, and our team will assist you promptly.
+
+---
+
+**Thank you for helping make online exams more accessible and user-friendly while maintaining academic integrity!** 🎓
