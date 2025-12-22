@@ -121,3 +121,6 @@ _build
 _package
 node_modules
 package-lock.json
+
+# DS Store
+.DS_Store
