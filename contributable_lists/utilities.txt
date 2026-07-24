@@ -1,0 +1,25 @@
+fpbbmpnghdjflhjlgdgeepepmhjojmha // Aternity Extension
+bhmcleggllockagfamojcnalijdnkdil // FA - FAST ClickOnce Helper
+bkgoccjhfjgjedhkiefaclppgbmoobnk // Audiotool
+cgbbbjmgdpnifijconhamggjehlamcif // Gopher Buddy (legacy Manifest V2)
+becdplfalooflanipjoblcmpaekkbbhe // Gopher Buddy (Manifest V3, unlisted - deployed via Google Admin console)
+bpgncafocbpieaeigfcookhgmeamglgo // Imprivata Enterprise Access Management (formerly OneSign)
+mnjdjjiobjicmlhnjlogfgbibihjhkeo // My Study Life
+gcjpefhffmcgplgklffgbebganmhffje // NetSupport School Student
+glnpjglilkicbckjpbgcfkogebgllemb // Okta Browser Plugin
+dcoegfodcnjofhjfbhegcgjgapeichlf // Export History/Bookmarks to JSON/CSV*/XLS*
+dncgedbnidfkppmdgfgidcepclnokpkb // Vernier Graphical Analysis
+hojbhchonecljnbcinbdfhkahanhogbm // VIPRE URL Filtering
+ncibgoaomkmdpilpocfeponihegamlic // Web eID
+ppaojnbmmaigjmlpjaldnkgnklhicppk // Webtime Tracker
+hmbjbjdpkobdjplfobhljndfdfdipjhg // Zoom
+bhdheahnajobgndecdbggfmcojekgdko // Desmos Graphing Calculator
+hjngolefdpdnooamgdldlkjgmdcmcjnc // Equatio - Math made digital
+lghkdmpjndggpffgahogcopicpednbgm // GradeCam Helper
+bjfhmglciegochdpefhhlphglcehbmek // Hypothesis - Web & PDF Annotation
+ndakideadaglgpbblmppfonobpdgggin // Mobility Print - EHOVE requested
+bfgjjammlemhdcocpejaompfoojnjjfn // PrinterLogic Extension v1.0.6.1
+fepaalfjfchbdianlgginbmpeeacahoo // Toolbox for Google Play Store™
+lcdeclfndahfibcjcckkbhhfgcecbaea // OrbitNote (Edge Add-ons)
+mloajfnmjckfjbeeofcdaecbelnblden // Snap&Read
+gekbonallhcfalincpgmjcipmjehfhlh // NCTest

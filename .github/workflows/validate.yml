@@ -1,0 +1,40 @@
+name: Validate extension lists
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Pull requests only need the source lists to be valid; extensions.txt
+      # is regenerated automatically after merge (see refresh.yml).
+      - name: Validate list format (IDs, descriptions, duplicates)
+        run: node .github/scripts/refresh_list.js --lint
+
+      # Contributors must never hand-edit the generated file.
+      - name: Reject manual edits to extensions.txt
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if git diff --name-only "$BASE_SHA"...HEAD | grep -qx 'extensions.txt'; then
+            echo "::error file=extensions.txt::extensions.txt is generated automatically — edit the files in contributable_lists/ instead."
+            exit 1
+          fi

@@ -1,0 +1,16 @@
+{
+  "name": "@proctorio/extension-lists",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Allowlist of browser extensions permitted to run during Proctorio-monitored exams",
+  "scripts": {
+    "refresh-list": "node .github/scripts/refresh_list.js",
+    "validate": "node .github/scripts/refresh_list.js --lint",
+    "check": "node .github/scripts/refresh_list.js --check"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "author": "Proctorio",
+  "license": "SEE LICENSE IN LICENCE"
+}

@@ -1,0 +1,28 @@
+kjeghcllfecehndceplomkocgfbklffd // Web Threat Shield
+callobklhcbilhphinckomhgkigmfocg // Endpoint Verification
+bkbeeeffjjeopflfhgeknacdieedcoml // Microsoft Defender Browser Protection
+fheoggkfdfchfphceeifdbepaooicaho // McAfee® WebAdvisor
+hjhklbomhmbfockimpldchgpbnccmbgp // Symantec VIP Access (was mislabeled "Symantec Endpoint"; delisted from store)
+eelojgpfkmhiikmhkineneemcahoehjo // Symantec Extension
+iekfdmgbpmcklocjhlabimljddkeflgl // SentinelOne
+ogjmklkhajdbaannfffilmkpneihckoh // SentinelOne (Edge Add-ons)
+pjfbgcbklnoeejjipoabcfnijajgikpb // Netskope
+gpmlagmcbcnjhkdjiofoenkfbaclgjkk // HP Wolf Security Extension
+flomofhkchlalfciiibgbfcpolhmglai // PIXM Phishing Protection
+pjonomkeadiapfhaggjgjkahnbppioei // PIXM Phishing Protection (Edge Add-ons)
+blojlgglhfcmpigjbkllcgjmhincdjhb // Web Application Metering
+fllaojicojecljbmefodhfapmkghcbnh // Google analytics opt out
+fmkaflbamgddpjacdmjlkhbnpnlemaea // Web Threat Shield (Webroot, Edge Add-ons)
+ioalpmibngobedobkmbhgmadaphocjdn // OneLogin for Google Chrome
+jmdpihfpelphmllgmamebdbelmobjfpg // ConcealBrowse
+ojjdicpccncniljgdmjcepenkkpmnnmk // ConcealBrowse (Edge Add-ons)
+jgnjaoilojahgagddnkeankieagghabk // Cisco Security for Chromebook
+bfogiafebfohielmmehodmfbbebbbpei // Keeper® Password Manager & Digital Vault
+donbapingkdboklmjcfmpagmdohkgphg // Smoothwall Safeguarding Client (Global)
+ddkjiahejlhfcafbddmgiahcphecmpfh // uBlock Origin Lite
+mbdopkebolmmpjbjehfjnnieihnihhcn // Lightspeed Alert Helper for Edge - EHOVE requested
+opckliiodihlmpliejjddbpdjdhdkefm // Lightspeed Location Agent - EHOVE requested
+cokbpgemipiebgbmnnlfboefilmdlonm // Trellix DLP Endpoint Extension
+ifinpabiejbjobcphhaomiifjibpkjlf // LineWize Connect
+epkahbohdeajpadlmelfkenmoeblkpem // LineWize Filter Content Aware
+echcggldkblhodogklpincgchnpgcdco // Microsoft Purview Extension
