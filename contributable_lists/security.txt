@@ -2,21 +2,20 @@ kjeghcllfecehndceplomkocgfbklffd // Web Threat Shield
 callobklhcbilhphinckomhgkigmfocg // Endpoint Verification
 bkbeeeffjjeopflfhgeknacdieedcoml // Microsoft Defender Browser Protection
 fheoggkfdfchfphceeifdbepaooicaho // McAfee® WebAdvisor
-hjhklbomhmbfockimpldchgpbnccmbgp // Symantec Endpoint
+hjhklbomhmbfockimpldchgpbnccmbgp // Symantec VIP Access (was mislabeled "Symantec Endpoint"; delisted from store)
 eelojgpfkmhiikmhkineneemcahoehjo // Symantec Extension
 iekfdmgbpmcklocjhlabimljddkeflgl // SentinelOne
-ogjmklkhajdbaannfffilmkpneihckoh // SentinelOne
+ogjmklkhajdbaannfffilmkpneihckoh // SentinelOne (Edge Add-ons)
 pjfbgcbklnoeejjipoabcfnijajgikpb // Netskope
 gpmlagmcbcnjhkdjiofoenkfbaclgjkk // HP Wolf Security Extension
 flomofhkchlalfciiibgbfcpolhmglai // PIXM Phishing Protection
-pjonomkeadiapfhaggjgjkahnbppioei // PIXM Phishing Protection
+pjonomkeadiapfhaggjgjkahnbppioei // PIXM Phishing Protection (Edge Add-ons)
 blojlgglhfcmpigjbkllcgjmhincdjhb // Web Application Metering
 fllaojicojecljbmefodhfapmkghcbnh // Google analytics opt out
-fmkaflbamgddpjacdmjlkhbnpnlemaea // Web Threat Shield
+fmkaflbamgddpjacdmjlkhbnpnlemaea // Web Threat Shield (Webroot, Edge Add-ons)
 ioalpmibngobedobkmbhgmadaphocjdn // OneLogin for Google Chrome
 jmdpihfpelphmllgmamebdbelmobjfpg // ConcealBrowse
-ojjdicpccncniljgdmjcepenkkpmnnmk // ConcealBrowse
-igfgceofdhhgnpbnokpgnmgejaddnjla // Bing Search by Fireshield
+ojjdicpccncniljgdmjcepenkkpmnnmk // ConcealBrowse (Edge Add-ons)
 jgnjaoilojahgagddnkeankieagghabk // Cisco Security for Chromebook
 bfogiafebfohielmmehodmfbbebbbpei // Keeper® Password Manager & Digital Vault
 donbapingkdboklmjcfmpagmdohkgphg // Smoothwall Safeguarding Client (Global)

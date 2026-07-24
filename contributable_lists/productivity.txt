@@ -1,23 +1,17 @@
-ppnbnpeolgkicgegkbkbjmhlideopiji // Windows Accounts
+ppnbnpeolgkicgegkbkbjmhlideopiji // Microsoft Single Sign On (formerly Windows Accounts)
 mfhehppjhmmnlfbbopchdfldgimhfhfk // Google Classroom
 ghbmnnjooekpmoecnnnilnnbdlolhkhi // Google Docs Offline
 apdfllckaahabafndbhieahigkjlhalf // Google Drive
 hmjkmjkepdijhoojdojkdfohbdgmmhki // Google Keep - Notes and Lists
 mihcahmgecmbnbcchbopgniflfhgnkff // Google Mail Checker
 aapocclcgogkmnckokdopfmhonfmgoek // Slides
-ihacalceahhliihnhclmjjghadnhhnoc // Jamboard
 ioekoebejdcmnlefjiknokhhafglcjdl // Dropbox
-mfaihdlpglflfgpfjcifdjdjcckigekc // App Runtime
 lmjegmlicamnimmfhcmpkclmigmmcbeh // Application Launcher For Drive (by Google)
-emfinbmielocnlhgmfkkmkngdoccbadn // ARC Welder
-fdnipcdebaagjpicpbkildmcefflobhn // Attendance for Google
-deakbjemijlmlcehdgejmdpekkceodmk // Harmony Web Protection
-ebkihbjamcljmddijijlfachpgphldll // Tab Capture
+fdnipcdebaagjpicpbkildmcefflobhn // Attendance for Google Meet
+deakbjemijlmlcehdgejmdpekkceodmk // Harmony Web Protection (Check Point)
 ecabifbgmdmgdllomnfinbmaellmclnh // Reader View
-bclfhcmkinghpnbnhnnklbmfbfiahill // Whatfix for Microsoft
-efaidnbmnnnibpcajpcglclefindmkaj // Whatfix for Unitek
-aghfnjkcakhmadgdomlmlhhaocbkloab // Just Black
-idkloemkmldbemijiamdiolojbffnjlh // Synergyse (g suite training) - EHOVE requested
+bclfhcmkinghpnbnhnnklbmfbfiahill // Whatfix for Microsoft MSX
+aghfnjkcakhmadgdomlmlhhaocbkloab // Just Black (Chrome theme)
 nadpbbdaaifbaebnniobcfpiifbfokij // Blue Prism 7.2 Browser Extension
 cbbhcllfnbkdobgnejfoajgfiooeifeb // Cloudpath Certificate
 hlphpjodcfdblfmbbdjodbfmlonmidfh // Content Server Browser

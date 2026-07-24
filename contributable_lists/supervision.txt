@@ -35,11 +35,11 @@ kphloipgdgeinpbmcoejceiadfggdaic // GoGuardian Licenses App ID
 ilgmkaodhbhimhmgnkinlodlhpglefke // GoGuardian Licenses App ID
 ccaokkaincdoidndekaibejhbfajljpf // GoGuardian Licenses App ID
 ghlpmldmjjhmdgmneoaibbegkjjbonbk // Blocksi Enterprise Edition
-kmpjlilnemjciohjckjadmgmicoldglf // Dyknow Cloud
+kmpjlilnemjciohjckjadmgmicoldglf // Dyknow Cloud (now Securly Classroom)
 honjcnefekfnompampcpmcdadibmjhlk // LanSchool Web Helper
 kkbmdgjggcdajckdlbngdjonpchpaiea // Lightspeed Classroom – EHOVE requested
 ihidolefpgnimlmgfljonacidpkmbhcl // ClassLink Analytics+ 
 jgfbgkjjlonelmpenhpfeeljjlcgnkpe // ClassLink OneClick
-hbonijggfojboimdmhilgnikbkeodiha // LanSchool Web Helper
+hbonijggfojboimdmhilgnikbkeodiha // LanSchool Classic Web Extension (Edge Add-ons)
 niclieacdopghjjjhfafacpnjbcppcea // Lightspeed Alert Helper & Lightspeed Relay Classroom Helper Extension
 gplllklnodpghanifimpajjlilinliml // Relay Classroom helper Extension

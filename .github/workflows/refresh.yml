@@ -1,0 +1,44 @@
+name: Refresh extensions.txt
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'contributable_lists/*.txt'
+      - '.github/scripts/refresh_list.js'
+
+# Uses the workflow-scoped GITHUB_TOKEN — no personal access token required.
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-extensions
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Regenerate extensions.txt
+        run: npm run refresh-list
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add extensions.txt
+          if git diff --cached --quiet; then
+            echo "extensions.txt already up to date."
+          else
+            git commit -m "Auto-update extensions.txt"
+            git push
+          fi
