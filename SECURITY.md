@@ -4,7 +4,7 @@ This repository is a live control surface: entries merged here are honored by Pr
 
 ## Reporting
 
-**Do not open a public issue** for any of the following — use GitHub's private vulnerability reporting on this repository ("Security" tab → "Report a vulnerability"), or contact Proctorio support and reference this repository:
+**Do not open a public issue** for any of the following — email **vulnerability@proctorio.com** (or use GitHub's private vulnerability reporting on this repository, "Security" tab → "Report a vulnerability") and reference this repository:
 
 - An allowlisted extension that is compromised, has changed ownership, or has added capabilities that could undermine exam integrity (communication, content capture, remote scripting)
 - An entry whose description does not match what the extension ID actually is

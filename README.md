@@ -93,7 +93,7 @@ Please open an issue in the repository, and our team will assist you promptly.
 
 ## ⚖️ License
 
-This repository is source-available under the [Proctorio Source-Available License](LICENSE): free for anyone to use, copy, and redistribute — **except** by or for the benefit of any product or service that competes with Proctorio.
+This repository is source-available under the [Proctorio Source-Available License](LICENCE): free for anyone to use, copy, and redistribute — **except** by or for the benefit of any product or service that competes with Proctorio.
 
 ---
 

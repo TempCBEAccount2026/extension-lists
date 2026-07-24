@@ -58,4 +58,4 @@ If you believe an already-allowlisted extension is compromised, has changed owne
 
 ## License of contributions
 
-By submitting a pull request you agree that your contribution is provided under the repository's [LICENSE](LICENSE) and may be redistributed by Proctorio as part of this list.
+By submitting a pull request you agree that your contribution is provided under the repository's [LICENCE](LICENCE) and may be redistributed by Proctorio as part of this list.
