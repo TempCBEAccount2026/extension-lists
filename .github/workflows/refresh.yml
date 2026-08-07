@@ -1,12 +1,12 @@
 name: Refresh extensions.txt
 
+# No paths filter: the ADO mirror force-pushes rewritten history, and a stale
+# extensions.txt must be caught on every push to main, not only when the push's
+# own diff touches the source lists. No-op runs exit without committing.
 on:
   push:
     branches:
       - main
-    paths:
-      - 'contributable_lists/*.txt'
-      - '.github/scripts/refresh_list.js'
 
 # Uses the workflow-scoped GITHUB_TOKEN — no personal access token required.
 permissions:
