@@ -1,0 +1,158 @@
+name: PR gate
+
+# Validates a submission completely before any human is asked to review, then
+# requests review from every code owner (except the author and the sync bot).
+#
+# pull_request_target is required to comment and assign reviewers on fork PRs.
+# SAFETY: this workflow never checks out or executes code from the PR; the PR's
+# changes are only read as data through the API.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: pr-gate-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate submission and manage reviewers
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const MARKER = '<!-- pr-gate -->';
+            const problems = [];
+            const notes = [];
+            let caveat = false;
+
+            const files = await github.paginate(github.rest.pulls.listFiles,
+              { owner, repo, pull_number: pr.number, per_page: 100 });
+
+            const badFiles = files.filter(f => !/^contributable_lists\/[^/]+\.txt$/.test(f.filename));
+            if (badFiles.length) {
+              problems.push('Only files in `contributable_lists/` may change (`extensions.txt` is generated). Touched: '
+                + badFiles.map(f => '`' + f.filename + '`').join(', '));
+            }
+
+            const added = [];
+            let removed = 0;
+            for (const f of files) {
+              if (!f.patch || badFiles.includes(f)) continue;
+              for (const line of f.patch.split('\n')) {
+                if (line.startsWith('+') && !line.startsWith('+++')) {
+                  const t = line.slice(1).trim();
+                  if (t) added.push(t);
+                } else if (line.startsWith('-') && !line.startsWith('---')) {
+                  if (line.slice(1).trim()) removed++;
+                }
+              }
+            }
+
+            // Removals/edits of existing entries are maintainer work: the gate cannot
+            // judge them, so it hands straight to humans without the strict checks.
+            const maintainerPath = removed > 0 && badFiles.length === 0;
+            if (maintainerPath) {
+              notes.push('Removes or edits existing entries; automated store verification does not apply. Maintainer judgment required.');
+            }
+
+            let entry = null;
+            if (!maintainerPath && !badFiles.length) {
+              if (added.length !== 1) {
+                problems.push('Exactly one extension per pull request: this PR adds ' + added.length + ' lines.');
+              } else {
+                const m = added[0].match(/^([a-p]{32})\s+\/\/\s*(.+)$/);
+                if (!m) {
+                  problems.push('The added line must be `<32-character id, letters a-p> // <store name>`. Got: `' + added[0] + '`');
+                } else {
+                  entry = { id: m[1], desc: m[2].trim() };
+                }
+              }
+            }
+
+            if (entry) {
+              // duplicate check against every category file on the base branch
+              const { data: dir } = await github.rest.repos.getContent(
+                { owner, repo, path: 'contributable_lists', ref: pr.base.ref });
+              for (const item of dir) {
+                const { data: fd } = await github.rest.repos.getContent(
+                  { owner, repo, path: item.path, ref: pr.base.ref });
+                if (Buffer.from(fd.content, 'base64').toString('utf8').includes(entry.id)) {
+                  problems.push('This ID is already listed in `' + item.path + '`.');
+                }
+              }
+
+              // live store verification: the ID must resolve to the claimed product
+              const res = await fetch('https://chromewebstore.google.com/detail/' + entry.id);
+              const html = await res.text();
+              const tm = html.match(/<title>([^<]*)<\/title>/);
+              const title = tm ? tm[1].replace(/ - Chrome Web Store$/, '').trim() : '';
+              if (title && title !== 'Chrome Web Store') {
+                const norm = s => s.toLowerCase().replace(/&amp;/g, '&').replace(/[^a-z0-9]/g, '');
+                const a = norm(title), b = norm(entry.desc);
+                if (a.includes(b.slice(0, 12)) || b.includes(a.slice(0, 12))) {
+                  notes.push('Store listing verified: "' + title + '".');
+                } else {
+                  problems.push('The description must match the store name. Listed as "' + entry.desc + '" but the store says "' + title + '".');
+                }
+              } else {
+                // not publicly listed: probe the Web Store package service to classify
+                const crx = await fetch('https://clients2.google.com/service/update2/crx?response=redirect&prodversion=126.0.0.0&acceptformat=crx3&x=id%3D'
+                  + entry.id + '%26uc');
+                caveat = true;
+                if (crx.status === 200 || crx.ok) {
+                  notes.push('Not publicly listed, but the package exists in the Web Store (unlisted). A human must verify the vendor and distribution claim in the PR description.');
+                } else if (crx.status === 404) {
+                  notes.push('No public listing and no Web Store package: consistent with a self-hosted enterprise extension (like the GoGuardian entries). A human must verify the vendor documentation and requesting institution.');
+                } else {
+                  notes.push('No public listing; the Web Store returned ' + crx.status + '. This signature usually means a discontinued extension. A human must confirm the product is alive before merging.');
+                }
+              }
+            }
+
+            const pass = problems.length === 0;
+
+            // sticky result comment (updated in place on every push)
+            const lines = [MARKER, '## PR gate', ''];
+            if (pass && maintainerPath) lines.push('Maintainer-style change. Review requested from the code owners.');
+            else if (pass && caveat) lines.push('Automated checks passed **with caveats**; review requested from the code owners.');
+            else if (pass) lines.push('All automated checks passed, including live store verification. Review requested from the code owners.');
+            else {
+              lines.push('**Not ready for human review.** Fix the following; the gate re-runs on every push:');
+              problems.forEach(p => lines.push('- ' + p));
+            }
+            if (notes.length) { lines.push(''); notes.forEach(n => lines.push('- ' + n)); }
+            const body = lines.join('\n');
+            const comments = await github.paginate(github.rest.issues.listComments,
+              { owner, repo, issue_number: pr.number, per_page: 100 });
+            const mine = comments.find(c => c.body && c.body.startsWith(MARKER));
+            if (mine) await github.rest.issues.updateComment({ owner, repo, comment_id: mine.id, body });
+            else await github.rest.issues.createComment({ owner, repo, issue_number: pr.number, body });
+
+            // reviewers: every code owner except the PR author and the sync bot
+            const { data: co } = await github.rest.repos.getContent(
+              { owner, repo, path: '.github/CODEOWNERS', ref: pr.base.ref });
+            const handles = Buffer.from(co.content, 'base64').toString('utf8')
+              .split('\n').filter(l => !l.trim().startsWith('#'))
+              .flatMap(l => [...l.matchAll(/@([A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)/g)].map(m => m[1]));
+            const reviewers = [...new Set(handles)].filter(h =>
+              h.toLowerCase() !== pr.user.login.toLowerCase() && h.toLowerCase() !== 'rumpusroobot');
+
+            if (pass) {
+              if (reviewers.length) {
+                await github.rest.pulls.requestReviewers({ owner, repo, pull_number: pr.number, reviewers });
+              }
+            } else {
+              const pending = (pr.requested_reviewers || []).map(u => u.login);
+              if (pending.length) {
+                await github.rest.pulls.removeRequestedReviewers({ owner, repo, pull_number: pr.number, reviewers: pending });
+              }
+              core.setFailed('PR gate: ' + problems.join(' | '));
+            }
