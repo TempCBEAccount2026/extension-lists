@@ -47,11 +47,25 @@ jobs:
             // The ADO mirror force-pushes rewritten history, which makes merge-base
             // diffs show phantom changes on stale branches; content comparison is
             // immune to that, and to newline-at-EOF noise in patches.
+            // Retry transient API failures; a throttled read must abort the run rather
+            // than silently misjudge the PR (burst-testing produced false "adds 0 lines"
+            // verdicts when secondary rate limits made reads fail quietly).
+            const withRetry = async (fn) => {
+              let last;
+              for (let i = 0; i < 3; i++) {
+                try { return await fn(); }
+                catch (e) { last = e; if (e.status === 404) throw e; await new Promise(r => setTimeout(r, 3000 * (i + 1))); }
+              }
+              throw last;
+            };
             const getText = async (path, ref) => {
               try {
-                const { data } = await github.rest.repos.getContent({ owner, repo, path, ref });
+                const { data } = await withRetry(() => github.rest.repos.getContent({ owner, repo, path, ref }));
                 return Buffer.from(data.content, 'base64').toString('utf8');
-              } catch (e) { return null; }
+              } catch (e) {
+                if (e.status === 404) return null; // genuinely absent
+                throw e; // transient: fail the run, do not judge
+              }
             };
             const changed = [];
             for (const f of files) {
@@ -102,33 +116,50 @@ jobs:
 
             if (entry) {
               // duplicate check against every category file on the base branch
-              const { data: dir } = await github.rest.repos.getContent(
-                { owner, repo, path: 'contributable_lists', ref: pr.base.ref });
+              const { data: dir } = await withRetry(() => github.rest.repos.getContent(
+                { owner, repo, path: 'contributable_lists', ref: pr.base.ref }));
               for (const item of dir) {
-                const { data: fd } = await github.rest.repos.getContent(
-                  { owner, repo, path: item.path, ref: pr.base.ref });
-                if (Buffer.from(fd.content, 'base64').toString('utf8').includes(entry.id)) {
+                const text = await getText(item.path, pr.base.ref);
+                if (text && text.includes(entry.id)) {
                   problems.push('This ID is already listed in `' + item.path + '`.');
                 }
               }
 
+              const norm = s => s.toLowerCase().replace(/&amp;/g, '&').replace(/[^a-z0-9]/g, '');
+              const nameMatches = (title) => {
+                const a = norm(title), b = norm(entry.desc);
+                return a.includes(b.slice(0, 12)) || b.includes(a.slice(0, 12));
+              };
+
+              // Edge Add-ons entries live in Microsoft's store, not Google's
+              if (/edge add-ons/i.test(entry.desc)) {
+                const res = await withRetry(() => fetch('https://microsoftedge.microsoft.com/addons/detail/' + entry.id));
+                const html = await res.text();
+                const tm = html.match(/<title[^>]*>([^<]*)<\/title>/);
+                const title = tm ? tm[1].replace(/ - Microsoft Edge Add-ons.*$/i, '').trim() : '';
+                if (title && !/^Microsoft Edge Add-ons$/i.test(title)) {
+                  if (nameMatches(title)) notes.push('Edge Add-ons listing verified: "' + title + '".');
+                  else problems.push('The description must match the Edge store name. Listed as "' + entry.desc + '" but the store says "' + title + '".');
+                } else {
+                  caveat = true;
+                  notes.push('No public Edge Add-ons listing found for this ID (the Edge store also intermittently errors). A human must verify the listing manually.');
+                }
+              } else {
               // live store verification: the ID must resolve to the claimed product
-              const res = await fetch('https://chromewebstore.google.com/detail/' + entry.id);
+              const res = await withRetry(() => fetch('https://chromewebstore.google.com/detail/' + entry.id));
               const html = await res.text();
               const tm = html.match(/<title>([^<]*)<\/title>/);
               const title = tm ? tm[1].replace(/ - Chrome Web Store$/, '').trim() : '';
               if (title && title !== 'Chrome Web Store') {
-                const norm = s => s.toLowerCase().replace(/&amp;/g, '&').replace(/[^a-z0-9]/g, '');
-                const a = norm(title), b = norm(entry.desc);
-                if (a.includes(b.slice(0, 12)) || b.includes(a.slice(0, 12))) {
+                if (nameMatches(title)) {
                   notes.push('Store listing verified: "' + title + '".');
                 } else {
                   problems.push('The description must match the store name. Listed as "' + entry.desc + '" but the store says "' + title + '".');
                 }
               } else {
                 // not publicly listed: probe the Web Store package service to classify
-                const crx = await fetch('https://clients2.google.com/service/update2/crx?response=redirect&prodversion=126.0.0.0&acceptformat=crx3&x=id%3D'
-                  + entry.id + '%26uc');
+                const crx = await withRetry(() => fetch('https://clients2.google.com/service/update2/crx?response=redirect&prodversion=126.0.0.0&acceptformat=crx3&x=id%3D'
+                  + entry.id + '%26uc'));
                 caveat = true;
                 if (crx.status === 200 || crx.ok) {
                   notes.push('Not publicly listed, but the package exists in the Web Store (unlisted). A human must verify the vendor and distribution claim in the PR description.');
@@ -137,6 +168,7 @@ jobs:
                 } else {
                   notes.push('No public listing; the Web Store returned ' + crx.status + '. This signature usually means a discontinued extension. A human must confirm the product is alive before merging.');
                 }
+              }
               }
             }
 
@@ -160,8 +192,8 @@ jobs:
             else await github.rest.issues.createComment({ owner, repo, issue_number: pr.number, body });
 
             // reviewers: every code owner except the PR author and the sync bot
-            const { data: co } = await github.rest.repos.getContent(
-              { owner, repo, path: '.github/CODEOWNERS', ref: pr.base.ref });
+            const { data: co } = await withRetry(() => github.rest.repos.getContent(
+              { owner, repo, path: '.github/CODEOWNERS', ref: pr.base.ref }));
             const handles = Buffer.from(co.content, 'base64').toString('utf8')
               .split('\n').filter(l => !l.trim().startsWith('#'))
               .flatMap(l => [...l.matchAll(/@([A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)/g)].map(m => m[1]));
@@ -170,12 +202,12 @@ jobs:
 
             if (pass) {
               if (reviewers.length) {
-                await github.rest.pulls.requestReviewers({ owner, repo, pull_number: pr.number, reviewers });
+                await withRetry(() => github.rest.pulls.requestReviewers({ owner, repo, pull_number: pr.number, reviewers }));
               }
             } else {
               const pending = (pr.requested_reviewers || []).map(u => u.login);
               if (pending.length) {
-                await github.rest.pulls.removeRequestedReviewers({ owner, repo, pull_number: pr.number, reviewers: pending });
+                await withRetry(() => github.rest.pulls.removeRequestedReviewers({ owner, repo, pull_number: pr.number, reviewers: pending }));
               }
               core.setFailed('PR gate: ' + problems.join(' | '));
             }
