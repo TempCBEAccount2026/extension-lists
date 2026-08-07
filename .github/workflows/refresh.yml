@@ -21,12 +21,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          # Push via the write deploy key: the main ruleset grants bypass to deploy
+          # keys, not to the workflow token, so the auto-commit must authenticate as one.
+          ssh-key: ${{ secrets.EXTENSIONS_REFRESH_DEPLOY_KEY }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Regenerate extensions.txt
         run: npm run refresh-list
